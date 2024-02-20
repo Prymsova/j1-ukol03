@@ -40,6 +40,24 @@ public class HlavniProgram {
         mujPocitac.vypniSe();
 
         mujPocitac.vypniSe();      // Nevypíše chybu, ale nic neprovede, protože počítač už je vypnutý
+
+        // druhá část úkolu
+        System.out.println("--- Druhá část úkolu ---");
+        mujPocitac.zapniSe();
+        mujPocitac.vytvorSouborOVelikosti(300000000000000L); // Vypíše chybu, že soubor je větší než kapacita.
+        mujPocitac.vytvorSouborOVelikosti(3000); // Soubor půjde vytvořit.
+        mujPocitac.vytvorSouborOVelikosti(30300); // Soubor půjde vytvořit.
+        System.out.println(mujPocitac.getPevnyDisk().getVyuziteMisto()); // Vypíše velikost využitého místa.
+
+        mujPocitac.vypniSe();
+        mujPocitac.vymazSouboryOVelikosti(11100); // Soubor nepůjde smazat, protože je počítač vypnutý.
+
+        mujPocitac.zapniSe();
+        mujPocitac.vymazSouboryOVelikosti(11100); // Smaže soubor.
+        System.out.println(mujPocitac.getPevnyDisk().getVyuziteMisto()); // Vypíše velikost využitého místa.
+        mujPocitac.vymazSouboryOVelikosti(1110000000); // Vypíše chybu, že soubor nelze smazat.
+
+        mujPocitac.vypniSe();
     }
 
 }

@@ -59,6 +59,24 @@ public class Pocitac {
         System.out.println("Počítač se vypnul.");
     }
 
+    public void vytvorSouborOVelikosti(long velikost) {
+        if (jeZapnuty) {
+            long vyuziteMisto = pevnyDisk.getVyuziteMisto() + velikost;
+            pevnyDisk.setVyuziteMisto(vyuziteMisto);
+        } else {
+            System.err.println("Počítač není zapnutý a nelze vytvořit soubor.");
+        }
+    }
+
+    public void vymazSouboryOVelikosti(long velikost) {
+        if (jeZapnuty) {
+            long vyuziteMisto = pevnyDisk.getVyuziteMisto() - velikost;
+            pevnyDisk.setVyuziteMisto(vyuziteMisto);
+        } else {
+            System.err.println("Počítač není zapnutý a nelze smazat soubor.");
+        }
+    }
+
     public String toString() {
         return "Počítač - je zapnutý: " + jeZapnuty() + ", procesor - " + getCpu() + ", paměť - " + getRam() + ", disk - " + getPevnyDisk();
     }

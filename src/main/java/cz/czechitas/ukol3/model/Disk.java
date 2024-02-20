@@ -17,6 +17,13 @@ public class Disk {
     }
 
     public void setVyuziteMisto(long vyuziteMisto) {
+        if (vyuziteMisto > kapacita) {
+            System.err.println("Na disku není dost místa pro vytvoření souboru.");
+            return;
+        } else if (vyuziteMisto < 0) {
+            System.err.println("Soubor není možné vymazat, došlo k nějaké chybě a využité místo by po smazání bylo menší než nula:-)");
+            return;
+        }
         this.vyuziteMisto = vyuziteMisto;
     }
 
