@@ -5,9 +5,14 @@ public class Pocitac {
     private Procesor cpu;
     private Pamet ram;
     private Disk pevnyDisk;
+    private Disk druhyDisk;
 
     public Pocitac() {
         this.jeZapnuty = false;
+    }
+
+    public boolean jeZapnuty() {
+        return jeZapnuty;
     }
 
     public Procesor getCpu() {
@@ -34,8 +39,12 @@ public class Pocitac {
         this.pevnyDisk = pevnyDisk;
     }
 
-    public boolean jeZapnuty() {
-        return jeZapnuty;
+    public Disk getDruhyDisk() {
+        return druhyDisk;
+    }
+
+    public void setDruhyDisk(Disk druhyDisk) {
+        this.druhyDisk = druhyDisk;
     }
 
     public void zapniSe() {
@@ -61,8 +70,16 @@ public class Pocitac {
 
     public void vytvorSouborOVelikosti(long velikost) {
         if (jeZapnuty) {
-            long vyuziteMisto = pevnyDisk.getVyuziteMisto() + velikost;
-            pevnyDisk.setVyuziteMisto(vyuziteMisto);
+            if (pevnyDisk.getVyuziteMisto() + velikost <= pevnyDisk.getKapacita()) {
+                pevnyDisk.setVyuziteMisto(pevnyDisk.getVyuziteMisto() + velikost);
+                System.out.println("--- ULOZIME NA PRVNI DISK ---");
+            } else if (druhyDisk != null) {
+                druhyDisk.setVyuziteMisto(druhyDisk.getVyuziteMisto() + velikost);
+                System.out.println("--- ULOZIME NA DRUHY DISK ---");
+            } else {
+                pevnyDisk.setVyuziteMisto(pevnyDisk.getVyuziteMisto() + velikost);
+                System.out.println("--- NENI DRUHY DISK, POKUSI SE ULOZIT NA PRVNI DISK ---");
+            }
         } else {
             System.err.println("Počítač není zapnutý a nelze vytvořit soubor.");
         }
@@ -70,14 +87,19 @@ public class Pocitac {
 
     public void vymazSouboryOVelikosti(long velikost) {
         if (jeZapnuty) {
-            long vyuziteMisto = pevnyDisk.getVyuziteMisto() - velikost;
-            pevnyDisk.setVyuziteMisto(vyuziteMisto);
+            if (druhyDisk != null && druhyDisk.getVyuziteMisto() - velikost >= 0) {
+                druhyDisk.setVyuziteMisto(druhyDisk.getVyuziteMisto() - velikost);
+                System.out.println("--- SOUBOR SE SMAZE PREDNOSTNE Z DRUHEHO DISKU");
+            } else {
+                pevnyDisk.setVyuziteMisto(pevnyDisk.getVyuziteMisto() - velikost);
+                System.out.println("--- SOUBOR SE POKUSI SMAZAT Z PRVNIHO DISKU, ANEBO VYPISE CHYBU, protože není dost využitého místa ani na jednom disku jako je velikost souboru ke smazání ---");
+            }
         } else {
             System.err.println("Počítač není zapnutý a nelze smazat soubor.");
         }
     }
 
     public String toString() {
-        return "Počítač - je zapnutý: " + jeZapnuty() + ", procesor - " + getCpu() + ", paměť - " + getRam() + ", disk - " + getPevnyDisk();
+        return "Počítač - je zapnutý: " + jeZapnuty() + ", procesor - " + getCpu() + ", paměť - " + getRam() + ", disk - " + getPevnyDisk() + ", druhý disk - " + getDruhyDisk();
     }
 }
