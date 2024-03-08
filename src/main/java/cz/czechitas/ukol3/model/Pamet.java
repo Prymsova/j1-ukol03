@@ -12,6 +12,6 @@ public class Pamet {
     }
 
     public String toString() {
-        return "kapacita: " + getKapacita();
+        return "kapacita: " + getKapacita() + " bajtů";
     }
 }

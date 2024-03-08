@@ -28,6 +28,6 @@ public class Disk {
     }
 
     public String toString() {
-        return "kapacita: " + getKapacita() + ", vyuziteMisto: " + getVyuziteMisto();
+        return "kapacita: " + getKapacita() + " bajtů, vyuziteMisto: " + getVyuziteMisto() + " bajtů";
     }
 }
